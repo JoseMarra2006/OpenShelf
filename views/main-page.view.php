@@ -14,22 +14,23 @@
 <section class="catalog">
   <h2>New Arrivals</h2>
   <div class="book-grid">
-    <div class="book-card">
-      <h3>The Silent Library</h3>
-      <p>Author: John Smith</p>
-    </div>
-    <div class="book-card">
-      <h3>Whispers of Pages</h3>
-      <p>Author: Anna Johnson</p>
-    </div>
-    <div class="book-card">
-      <h3>Digital Dreams</h3>
-      <p>Author: Michael Brown</p>
-    </div>
-    <div class="book-card">
-      <h3>Infinite Stories</h3>
-      <p>Author: Sarah Davis</p>
-    </div>
+
+    <?php
+        if (isset($new_arrivals_data) && !empty($new_arrivals_data)) :
+            foreach ($new_arrivals_data as $book) :
+    ?>
+                <div class="book-card">
+                  <h3><?= htmlspecialchars($book['book_title']) ?></h3>
+                  <p>Author: <?= htmlspecialchars($book['book_author']) ?></p>
+                </div>
+    <?php
+            endforeach;
+        else :
+    ?>
+        <p>No new books available at the moment.</p>
+    <?php
+        endif;
+    ?>
+
   </div>
 </section>
-
