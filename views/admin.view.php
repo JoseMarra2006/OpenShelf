@@ -18,14 +18,14 @@
 
         <?php
 
-            if(isset($_SESSION['user'])) :       
+            if(isset($all_users_data) && !empty($all_users_data)) :       
                 
-                foreach($_SESSION['user'] as $users) :?> 
+                foreach($all_users_data as $users) :?> 
                     
-                        <?php echo '<tr><td>' . $users['username'] . '</td>';
-                        echo '<td>' . $users['user_email'] . '</td>';
-                        echo '<td>' . $users['user_cpf'] . '</td>';
-                        echo '<td>' . $users['user_password'] . '</td>';?>
+                        <?php echo '<tr><td>' . htmlspecialchars($users['username']) . '</td>';
+                        echo '<td>' . htmlspecialchars($users['user_email']) . '</td>';
+                        echo '<td>' . htmlspecialchars($users['user_cpf']) . '</td>';
+                        echo '<td>' . htmlspecialchars($users['user_password']) . '</td>';?>
                         
                         <form id="user-delete" method="POST" action="/admin/delete">
 
@@ -39,11 +39,12 @@
                             <td><button type="submit">Edit</button></td>
 
                         </form>
-
-                <?php
+                        </tr> <?php
 
                 endforeach;
 
+            else:
+                echo '<tr><td colspan="6">No users found.</td></tr>';
             endif;
         ?>
     </table>
