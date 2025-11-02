@@ -3,7 +3,7 @@
     require_once('db.openshelf.php');
 
     spl_autoload_register(function ($class) {
-        $file = 'models/' . $class . '.php';
+        $file = 'model/' . $class . '.php';
         if (file_exists($file)) {
             require $file;
         }

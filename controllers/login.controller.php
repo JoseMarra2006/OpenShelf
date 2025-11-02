@@ -1,6 +1,6 @@
 <?php
 
-    $userRepository = new userRepository($db);
+    $userRepository = new UserRepository($db);
     if($action == 'list') :
 
         $action = 'login';
