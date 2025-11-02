@@ -10,23 +10,20 @@
 
     <?php
 
-    if (isset($_SESSION['user']) && !empty($_SESSION['user'])) :
+    if (isset($all_users_data) && !empty($all_users_data)) :
 
-        foreach ($_SESSION['user'] as $user) :
+        foreach ($all_users_data as $user) :
     ?>
 
             <li class="user-card">
                 <div class="user-info">
-                    <strong>Name:</strong> <?php echo htmlspecialchars($user['name_user']); ?>
+                    <strong>Name:</strong> <?php echo htmlspecialchars($user['username']); ?>
                 </div>
                 <div class="user-info">
-                    <strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?>
+                    <strong>Email:</strong> <?php echo htmlspecialchars($user['user_email']);  ?>
                 </div>
                 <div class="user-info">
-                    <strong>Email:</strong> <?php echo htmlspecialchars($user['email_user']);  ?>
-                </div>
-                <div class="user-info">
-                    <strong>CPF>:</strong> <?php echo htmlspecialchars($user['cpf']);  ?>
+                    <strong>CPF:</strong> <?php echo htmlspecialchars($user['user_cpf']);  ?>
                 </div>
             </li>
     

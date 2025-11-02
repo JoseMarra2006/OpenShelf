@@ -1,5 +1,7 @@
 <?php
 
+    $userRepository = new userRepository($db);
+
     if($action == 'list') :
 
         $action = 'register';
@@ -15,13 +17,17 @@
 
             if(!empty($username) && !empty($user_email) && !empty($user_cpf) && !empty($user_password)) :
 
-                $_SESSION['user'][] = [
-
+                $userData = [
                     'username' => $username,
                     'user_email' => $user_email,
                     'user_cpf' => $user_cpf,
                     'user_password' => $user_password
                 ];
+
+                try{
+                    $userRepository->addUser($userData);
+                }catch(PDOException $e){
+                }
 
             endif;
 

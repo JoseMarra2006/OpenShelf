@@ -1,39 +1,44 @@
 <?php
 
+$userRepository = new userRepository($db);
+
+$all_users_data = [];
+
 if($action == 'list') :
 
-    $action == 'user';
+    $action ='user';
 
 elseif ($action == 'register'):
 
-    $action == 'insert_user';
+    $action = 'insert_user';
 
 elseif ($action == 'save'):
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') :
 
-        $name_user = $_POST['name_user'];
-        $email_user = $_POST['email_user'];
-        $cpf = $_POST['cpf'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = $_POST['username'] ?? null;
+        $user_email = $_POST['user_email'] ?? null;
+        $user_cpf = $_POST['user_cpf'] ?? null;
+        $user_password = $_POST['user_password'] ?? null;
     
-        if(!empty($name_user) && !empty($email_user) && !empty($cpf) && !empty($username) && !empty($password)) :
+        if(!empty($username) && !empty($user_email) && !empty($user_cpf) && !empty($user_password)) :
 
-            $_SESSION['user'][] =[
-               'name_user' => $name_user,
-               'email_user' => $email_user,
-               'cpf' => $cpf,
+           $userData = [
                'username' => $username,
-               'password' => $password
+               'user_email' => $user_email,
+               'user_cpf' => $user_cpf,
+               'user_password' => $user_password
             ];
+            
+            $userRepo->addUser($userData);
 
         endif;
 
     endif;
 
     header('Location: /user');
-
+    exit();
+    
 endif;
 
 require_once("views.php");
