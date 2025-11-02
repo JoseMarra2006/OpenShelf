@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    
+    require_once('db.openshelf.php');
     $page = substr($_SERVER['REQUEST_URI'], 1);  
     $routes = explode('/', $page);
         
