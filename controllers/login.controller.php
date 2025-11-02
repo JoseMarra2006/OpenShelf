@@ -1,16 +1,19 @@
 <?php
 
+    $userRepository = new userRepository($db);
     if($action == 'list') :
 
         $action = 'login';
     
     elseif($action == 'logoff') :
         
-        if($_SESSION['logged'] == "true") :
-
+        if(isset($_SESSION['logged']) && $_SESSION['logged'] == "true") :
             $_SESSION['logged'] = "false";
+            unset($_SESSION['username']);
+            unset($_SESSION['role']);
 
             header('Location: /main-page');
+            exit();
 
         endif;
 
@@ -28,30 +31,26 @@
                 $_SESSION['username'] = "admin";
 
                 header('Location: /main-page');
+                exit();
 
             endif;
 
-            if(isset($_SESSION['user'])) :    
-            
-                foreach($_SESSION['user'] as $users) :
-                    
-                    if($users['user_email'] == $user_email && $users['user_password'] == $user_password) :
+            $user = $userRepository->findByEmail($user_email);
 
+            if($user && $user['user_password'] == $user_password) :
                         $_SESSION['logged'] = "true";
                         $_SESSION['role'] = "user";                        
                         $_SESSION['username'] = $users['username'];
     
                         header('Location: /main-page');
-
-                    endif;
-
-                endforeach;
+                        exit();
 
             else :
                 
                 $_SESSION['error'] = 'E-mail or password incorrect. Try again later.';
 
                 header("Location: /login");
+                exit();
 
             endif;
 
@@ -60,3 +59,4 @@
     endif;
 
     require_once('views.php');
+?>

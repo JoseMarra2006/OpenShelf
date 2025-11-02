@@ -1,6 +1,14 @@
 <?php 
     session_start();
     require_once('db.openshelf.php');
+
+    spl_autoload_register(function ($class) {
+        $file = 'models/' . $class . '.php';
+        if (file_exists($file)) {
+            require $file;
+        }
+    });
+    
     $page = substr($_SERVER['REQUEST_URI'], 1);  
     $routes = explode('/', $page);
         
