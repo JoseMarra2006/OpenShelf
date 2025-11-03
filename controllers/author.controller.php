@@ -1,5 +1,7 @@
 <?php
 
+global $db;
+
 $bookRepository = new BookRepository($db);
 $author_books_data = [];
 

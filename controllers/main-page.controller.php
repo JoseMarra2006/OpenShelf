@@ -1,5 +1,6 @@
 <?php
-$bookRepository = new $bookRepository($db);
+global $db;
+$bookRepository = new BookRepository($db);
 
 $new_arrivals_data = $bookRepository->getNewestBooks(4);
 

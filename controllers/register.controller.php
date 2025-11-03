@@ -1,5 +1,5 @@
 <?php
-
+    global $db;
     $userRepository = new userRepository($db);
 
     if($action == 'list') :

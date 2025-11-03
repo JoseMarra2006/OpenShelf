@@ -22,7 +22,7 @@
 
     if(isset($author_books_data) && ($author_books_data)) :
 
-        foreach (authors_books_data as $book) :
+        foreach ($authors_books_data as $book) :
     ?>
             <tr>
                 <td><?php echo htmlspecialchars($book['book_title']); ?></td>

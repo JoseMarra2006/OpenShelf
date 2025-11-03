@@ -1,5 +1,5 @@
 <?php
-
+    global $db;
     $userRepository = new UserRepository($db);
     if($action == 'list') :
 
@@ -40,7 +40,7 @@
             if($user && $user['user_password'] == $user_password) :
                         $_SESSION['logged'] = "true";
                         $_SESSION['role'] = "user";                        
-                        $_SESSION['username'] = $users['username'];
+                        $_SESSION['username'] = $user['username'];
     
                         header('Location: /main-page');
                         exit();

@@ -1,4 +1,6 @@
 <?php
+
+    global $db;
     $bookRepository = new BookRepository($db);
     $lendingRepository = new LendingRepository($db);
 
