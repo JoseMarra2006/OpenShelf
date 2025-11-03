@@ -1,8 +1,13 @@
 <?php
+    $bookRepository = new BookRepository($db);
+    $lendingRepository = new LendingRepository($db);
+
+    $catalogue_data = [];
 
     if($action == 'list') :
 
         $action = 'catalogue';
+        $catalogue_data = $bookRepository->getAllBooks();
     
     elseif($action == 'insert') :
         
@@ -21,45 +26,20 @@
         if($_SERVER['REQUEST_METHOD'] === 'POST') :
 
             $book_lended = $_POST['book'] ?? null;  
+            $username = $_SESSION['username'] ?? null;
                 
-            if(!isset($_SESSION['my-books'])) :
+            if($username && book_lended) {
                 
-                $_SESSION['my-books'][] = [
+                $success = $lendingRepository->lendBook($username, $book_lended);
 
-                    'book_lended' => $book_lended
-                ];
+                if(!$success) {
+                    $_SESSION['error'] = "You have already lended this book, return the book to lend it again.";
+                }
 
                 header("Location: /catalogue");
-            
-            else :
-
-                if(!empty($book_lended)) :
-                
-                    foreach($_SESSION['my-books'] as $books) :
-                    
-                        if($book_lended === $books['book_lended']) :
-
-                            $_SESSION['error'] = "You have already lended this book, return the book to lend it again.";
-                        
-                            header("Location: /catalogue");
-                            exit();   
-                            
-                        endif;
-
-                    endforeach;
-
-                    $_SESSION['my-books'][] = [
-
-                        'book_lended' => $book_lended
-                    ];
-
-                    header('Location: /catalogue');
-
-                endif;
-
-            endif;    
-
-        endif;
+                exit();
+            }
+    endif;
 
     elseif($action == 'save-book') :
 
@@ -73,14 +53,15 @@
 
             if(!empty($book_title) && !empty($book_pages) && !empty($book_year) && !empty($book_genre) && !empty($book_author)) : 
 
-                $_SESSION['catalogue'][] = [
-
+                $bookData = [
                     'book_title' => $book_title,
                     'book_pages' => $book_pages,
                     'book_year' => $book_year,
                     'book_genre' => $book_genre,
                     'book_author' => $book_author
                 ];
+                
+                $bookRepository->addBook($bookData);
                 
             endif;
 
@@ -91,13 +72,6 @@
     endif;
 
     require_once("views.php");
-
-
-//pensando como fazer
-//teremos que ter um método de pesquisar um livro -> search bar
-//iterar pela session com os livros cadastrados e mostrar conforme o que for pesquisado
-//só é possível emprestar um livro se tiver logado, mas antes faremos sem a feature do login
-//fazer um botão "LEND" no catalogue
 
 
 

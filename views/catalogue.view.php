@@ -18,15 +18,15 @@
     
         <?php
     
-            if(isset($_SESSION['catalogue'])) :
+            if(isset($catalogue_data) && !empty($catalogue_data)) :
     
-                foreach($_SESSION['catalogue'] as $catalogue) :
+                foreach($catalogue_data as $catalogue) :
     
-                    echo '<tr><td>' . $catalogue['book_title'] . '</td>';
-                    echo '<td>' . $catalogue['book_pages'] . '</td>';
-                    echo '<td>' . $catalogue['book_year'] . '</td>';
-                    echo '<td>' . $catalogue['book_genre'] . '</td>';
-                    echo '<td>' . $catalogue['book_author'] . '</td>';?>
+                    echo '<tr><td>' . htmlspecialchars($catalogue['book_title']) . '</td>';
+                    echo '<td>' . htmlspecialchars($catalogue['book_pages']) . '</td>';
+                    echo '<td>' . htmlspecialchars($catalogue['book_year']) . '</td>';
+                    echo '<td>' . htmlspecialchars($catalogue['book_genre']) . '</td>';
+                    echo '<td>' . htmlspecialchars($catalogue['book_author']) . '</td>';?>
                     <form id="user-delete" method="POST" action="/catalogue/save-lend">
 
                             <input type="hidden" name="book" value="<?= htmlspecialchars($catalogue['book_title'] ?? '')?>">
@@ -51,4 +51,5 @@
             <button class="btn-signin">Insert books</button>
         </a>
     </div>
+    </section>
     <?php endif; ?>
