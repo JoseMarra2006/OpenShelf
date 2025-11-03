@@ -1,4 +1,4 @@
-##  Open Shelf: Sua Biblioteca Digital
+##  Open Shelf: Sua Biblioteca Digital.
 
 O **Open Shelf** é um projeto de biblioteca digital desenvolvido para a disciplina de Web-Servidor, com o objetivo de demonstrar a implementação de funcionalidades básicas de *backend* utilizando PHP e o servidor embutido do PHP. O sistema utiliza sessões para simular o armazenamento de dados de usuários e do acervo de livros.
 
