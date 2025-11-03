@@ -1,4 +1,8 @@
 <?php
+namespace OpenShelf\Model;
+
+use PDO;
+
 class UserRepository{
 
     private $db;
@@ -44,9 +48,8 @@ class UserRepository{
     }
 
     public function getAllUsers(){
-        $statement = $this->db->query("SELECT * FROM users");
+        $statement = $this->db->query("SELECT * FROM users ORDER BY username ASC");
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
-

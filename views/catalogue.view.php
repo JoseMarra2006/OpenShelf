@@ -1,9 +1,6 @@
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="error-message">
-        <?= $_SESSION['error']; ?>
-    </div>
-    <?php unset($_SESSION['error']); ?>
-<?php endif; ?>
+<?php 
+    $role = $_SESSION["role"] ?? "user"; 
+?>
 
 <section>
     <table>
@@ -27,18 +24,18 @@
                     echo '<td>' . htmlspecialchars($catalogue['book_year']) . '</td>';
                     echo '<td>' . htmlspecialchars($catalogue['book_genre']) . '</td>';
                     echo '<td>' . htmlspecialchars($catalogue['book_author']) . '</td>';?>
-                    <form id="user-delete" method="POST" action="/catalogue/save-lend">
-
+                    <td>
+                        <form id="user-delete" method="POST" action="/catalogue/save-lend">
                             <input type="hidden" name="book" value="<?= htmlspecialchars($catalogue['book_title'] ?? '')?>">
-                            <td><button type="submit">Lend</button></td></tr>
-
-                    </form>
-                    
+                            <button type="submit">Lend</button>
+                        </form>
+                    </td>
+                    </tr>
                 <?php endforeach;
             
             else :
     
-                echo '<tr><td>There are not any books registered in the catalogue';
+                echo '<tr><td colspan="6">There are not any books registered in the catalogue</td></tr>';
     
             endif;
     

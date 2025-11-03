@@ -1,6 +1,8 @@
 <?php
+    use OpenShelf\Model\BookRepository;
+    use OpenShelf\Model\LendingRepository;
 
-    global $db;
+    $db = OpenShelf\Database::getConnection();
     $bookRepository = new BookRepository($db);
     $lendingRepository = new LendingRepository($db);
 
@@ -30,18 +32,20 @@
             $book_lended = $_POST['book'] ?? null;  
             $username = $_SESSION['username'] ?? null;
                 
-            if($username && book_lended) {
+            if($username && $book_lended) {
                 
                 $success = $lendingRepository->lendBook($username, $book_lended);
 
-                if(!$success) {
-                    $_SESSION['error'] = "You have already lended this book, return the book to lend it again.";
+                if($success) {
+                    $_SESSION['success'] = 'Livro "' . htmlspecialchars($book_lended) . '" emprestado com sucesso!';
+                } else {
+                    $_SESSION['error'] = "Você já emprestou este livro, devolva o livro para emprestá-lo novamente.";
                 }
 
                 header("Location: /catalogue");
                 exit();
             }
-    endif;
+        endif;
 
     elseif($action == 'save-book') :
 
@@ -64,16 +68,20 @@
                 ];
                 
                 $bookRepository->addBook($bookData);
+                $_SESSION['success'] = 'Livro "' . htmlspecialchars($book_title) . '" adicionado com sucesso!';
                 
+            else:
+                $_SESSION['error'] = 'Todos os campos são obrigatórios para adicionar um livro.';
+                header('Location: /catalogue/insert'); // Volta para o formulário
+                exit();
             endif;
 
         endif;
 
         header('Location: /catalogue');
+        exit();
 
     endif;
 
     require_once("views.php");
-
-
-
+?>

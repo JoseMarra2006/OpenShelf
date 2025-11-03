@@ -5,21 +5,13 @@
 
     <div class="account-data">
         <?php
-            $current_user_data = [];
-            $username_session = $_SESSION["username"] ?? null;
-
-            if ($username_session && isset($_SESSION['user'])) :
-                foreach ($_SESSION['user'] as $user) :
-                    if ($user['username'] === $username_session) :
-                        $current_user_data = $user;
-                        break;
-                    endif;
-                endforeach;
+            if (isset($current_user_data) && !empty($current_user_data)) :
+                echo '<strong>Name:</strong> ' . htmlspecialchars($current_user_data['username']) . '<br>';
+                echo '<strong>E-mail:</strong> ' . htmlspecialchars($current_user_data['user_email']) . '<br>';
+                echo '<strong>CPF:</strong> ' . htmlspecialchars($current_user_data['user_cpf']) . '<br>';
+            else:
+                echo '<p>Não foi possível carregar os dados do usuário.</p>';
             endif;
-
-            echo 'Name: ' . $current_user_data['username'] . '<br>';
-            echo 'E-mail ' . $current_user_data['user_email'] . '<br>';
-            echo 'CPF: ' . $current_user_data['user_cpf'] . '<br>';
         ?>
     </div>
 
@@ -31,15 +23,14 @@
         <div id="my-books">
             <ul>
                 <?php
+                    if(isset($my_books_data) && !empty($my_books_data)) :
 
-                    if(isset($_SESSION['my-books'])) :
-
-                        foreach($_SESSION['my-books'] as $books) :?>
+                        foreach($my_books_data as $book) :?>
 
                             <form id="book-return" method="POST" action="/my-profile/return">
 
-                                <li><?=$books['book_lended']?>
-                                    <input type="hidden" name="book" value="<?= htmlspecialchars($books['book_lended'] ?? '')?>">
+                                <li><?= htmlspecialchars($book['book_title']) ?>
+                                    <input type="hidden" name="book" value="<?= htmlspecialchars($book['book_title'] ?? '')?>">
                                     <button type="submit">Return</button></li>
 
                             </form>

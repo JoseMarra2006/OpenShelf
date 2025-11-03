@@ -1,6 +1,9 @@
 <?php
-    global $db;
+    use OpenShelf\Model\UserRepository;
+
+    $db = OpenShelf\Database::getConnection();
     $userRepository = new UserRepository($db);
+
     if($action == 'list') :
 
         $action = 'login';
@@ -12,6 +15,7 @@
             unset($_SESSION['username']);
             unset($_SESSION['role']);
 
+            $_SESSION['success'] = 'Logoff realizado com sucesso.';
             header('Location: /main-page');
             exit();
 
@@ -29,6 +33,7 @@
                 $_SESSION['logged'] = "true";
                 $_SESSION['role'] = "admin";
                 $_SESSION['username'] = "admin";
+                $_SESSION['success'] = 'Bem-vindo, Admin!';
 
                 header('Location: /main-page');
                 exit();
@@ -37,18 +42,18 @@
 
             $user = $userRepository->findByEmail($user_email);
 
-            if($user && $user['user_password'] == $user_password) :
+            if($user && $user['user_password'] == $user_password) : // NOTA: Senhas em texto plano não são seguras!
                         $_SESSION['logged'] = "true";
                         $_SESSION['role'] = "user";                        
                         $_SESSION['username'] = $user['username'];
+                        $_SESSION['success'] = 'Login realizado com sucesso. Bem-vindo, ' . htmlspecialchars($user['username']) . '!';
     
                         header('Location: /main-page');
                         exit();
 
             else :
                 
-                $_SESSION['error'] = 'E-mail or password incorrect. Try again later.';
-
+                $_SESSION['error'] = 'E-mail ou senha incorretos. Tente novamente.';
                 header("Location: /login");
                 exit();
 

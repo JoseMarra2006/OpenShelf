@@ -19,10 +19,9 @@
     </tr>
 
     <?php
+    if(isset($author_books_data) && !empty($author_books_data)) :
 
-    if(isset($author_books_data) && ($author_books_data)) :
-
-        foreach ($authors_books_data as $book) :
+        foreach ($author_books_data as $book) :
     ?>
             <tr>
                 <td><?php echo htmlspecialchars($book['book_title']); ?></td>

@@ -1,19 +1,13 @@
 <?php 
     session_start();
+
+    require_once __DIR__ . '/vendor/autoload.php';
     require_once('db.openshelf.php');
 
-    spl_autoload_register(function ($class) {
-        $file = 'model/' . $class . '.php';
-        if (file_exists($file)) {
-            require $file;
-        }
-    });
-    
     $page = substr($_SERVER['REQUEST_URI'], 1);  
     $routes = explode('/', $page);
         
     $resource = empty($routes[0]) ? 'main-page' : $routes[0];
-
     $action = $routes[1] ?? 'list';
 
     $controller = "controllers/$resource.controller.php";

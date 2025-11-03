@@ -1,0 +1,24 @@
+{
+    "name": "amand4morais/openshelf",
+    "description": "Open Shelf: Sua Biblioteca Digital.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Amanda Morais Ribeiro"
+        },
+        {
+            "name": "José Ernesto Marra Filho"
+        },
+        {
+            "name": "Lucas Monteiro Ribas"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenShelf\\": "src/"
+        }
+    }
+}

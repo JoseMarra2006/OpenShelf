@@ -65,3 +65,49 @@
         <?php endif; ?>
 
     </header>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="error-message" style="background-color: #f8d7da; color: #721c24; padding: 15px; margin: 20px; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center; font-size: 1.1rem;">
+            <?= htmlspecialchars($_SESSION['error']); ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="success-message" style="background-color: #d4edda; color: #155724; padding: 15px; margin: 20px; border: 1px solid #c3e6cb; border-radius: 5px; text-align: center; font-size: 1.1rem;">
+            <?= htmlspecialchars($_SESSION['success']); ?>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
+<?php
+
+    $logged = $_SESSION["logged"] ?? "false";
+    $user = $_SESSION["username"] ?? null;
+    $role = $_SESSION["role"] ?? "user";
+
+    if($logged == "true") :
+?>
+
+    <h3>You are already logged.</h3>
+    <p>Click <a href="/main-page">here</a> to get back to the home page</Strong></p>
+
+<?php else : ?>
+
+<section class="register-login-user">
+    <h2 class="book-home">Login on OpenShelf</h2>
+
+    <form id="register-login-form" method="POST" action="/login/save">
+        <div class="user-email">
+            <p class="question">E-mail</p>
+            <input type="email" name="user-email" placeholder="E-mail" required>
+        </div>
+        <div class="user-password">
+            <p class="question">Password</p>
+            <input type="password" name="user-password" placeholder="Password" required> 
+            </div>
+        <div>
+            <button class="btn-login" type="submit">Login</button>
+        </div>
+    </form>
+</section>
+<?php endif; ?>
