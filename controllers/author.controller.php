@@ -1,8 +1,12 @@
 <?php
 
+$bookRepository = new BookRepository($db);
+$author_books_data = [];
+
 if ($action == 'list') :
      
     $action = 'author';
+    $author_books_data = $bookRepository->getAllBooks();
 
 elseif ($action == 'register-book') :
 
@@ -21,13 +25,14 @@ elseif ($action == 'save') :
 
         if (!empty($author_name) && !empty($book_title) && !empty($book_pages) && !empty($book_year) && !empty($book_genre)) :
 
-            $_SESSION['catalogue'][] = [
+            $bookData = [
                 'book_title' => $book_title,
                 'book_pages'=> $book_pages,
                 'book_year'=> $book_year,
                 'book_genre'=> $book_genre,
                 'book_author' => $author_name
             ];
+            $bookRepository->addBook($bookData);
 
         endif;
 
