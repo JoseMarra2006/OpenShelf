@@ -22,5 +22,13 @@
             $statement = $this->db->query("SELECT * FROM books ORDER BY id DESC");
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function getNewestBooks($limit = 4) {
+            $sql = "SELECT * FROM books ORDER BY id DESC LIMIT :limit";
+            $statement = $this->db->prepare($sql);
+            $statement->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 ?>
