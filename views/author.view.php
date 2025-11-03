@@ -20,9 +20,9 @@
 
     <?php
 
-    if(isset($_SESSION['catalogue']) && !empty($_SESSION['catalogue'])) :
+    if(isset($author_books_data) && ($author_books_data)) :
 
-        foreach ($_SESSION['catalogue'] as $book) :
+        foreach (authors_books_data as $book) :
     ?>
             <tr>
                 <td><?php echo htmlspecialchars($book['book_title']); ?></td>

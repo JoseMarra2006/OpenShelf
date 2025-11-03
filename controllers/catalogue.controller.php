@@ -1,13 +1,13 @@
 <?php
-    $bookRepo = new BookRepository($db);
-    $lendingRepo = new LendingRepository($db);
+    $bookRepository = new BookRepository($db);
+    $lendingRepository = new LendingRepository($db);
 
     $catalogue_data = [];
 
     if($action == 'list') :
 
         $action = 'catalogue';
-        $catalogue_data = $bookRepo->getAllBooks();
+        $catalogue_data = $bookRepository->getAllBooks();
     
     elseif($action == 'insert') :
         
@@ -30,7 +30,7 @@
                 
             if($username && book_lended) {
                 
-                $success = $lendingRepo->lendBook($username, $book_lended);
+                $success = $lendingRepository->lendBook($username, $book_lended);
 
                 if(!$success) {
                     $_SESSION['error'] = "You have already lended this book, return the book to lend it again.";
@@ -61,7 +61,7 @@
                     'book_author' => $book_author
                 ];
                 
-                $bookRepo->addBook($bookData);
+                $bookRepository->addBook($bookData);
                 
             endif;
 

@@ -8,8 +8,8 @@
 
         public function addBook(array $bookData) {
             $sql = "INSERT INTO books (book_title, book_pages, book_year, book_genre, book_author) VALUES (?, ?, ?, ?, ?)";
-            $stmt = $this->db->prepare($sql);
-            return $stmt->execute([
+            $statement = $this->db->prepare($sql);
+            return $statement->execute([
                 $bookData['book_title'],
                 $bookData['book_pages'],
                 $bookData['book_year'],
@@ -19,8 +19,8 @@
         }
 
         public function getAllBooks() {
-            $stmt = $this->db->query("SELECT * FROM books ORDER BY id DESC");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $statement = $this->db->query("SELECT * FROM books ORDER BY id DESC");
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 ?>

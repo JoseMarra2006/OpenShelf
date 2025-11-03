@@ -12,9 +12,9 @@
                 JOIN users u ON l.user_id = u.id
                 JOIN books b ON l.book_id = b.id
                 WHERE u.username = ?";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$username]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $statement = $this->db->prepare($sql);
+            $statement->execute([$username]);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function lendBook($username, $bookTitle) {
@@ -26,15 +26,15 @@
             $stmt_check = $this->db->prepare($sql_check);
             $stmt_check->execute([$username, $bookTitle]);
             if ($stmt_check->fetch()) {
-                return false; // Já emprestado
+                return false; 
             }
 
             $sql = "INSERT INTO lendings (user_id, book_id)
                 SELECT u.id, b.id
                 FROM users u, books b
                 WHERE u.username = ? AND b.book_title = ?";
-            $stmt = $this->db->prepare($sql);
-            return $stmt->execute([$username, $bookTitle]);
+            $statement = $this->db->prepare($sql);
+            return $statement->execute([$username, $bookTitle]);
         }
 
         public function returnBook($username, $bookTitle) {
@@ -42,8 +42,8 @@
                 JOIN users u ON l.user_id = u.id
                 JOIN books b ON l.book_id = b.id
                 WHERE u.username = ? AND b.book_title = ?";
-            $stmt = $this->db->prepare($sql);
-            return $stmt->execute([$username, $bookTitle]);
+            $statement = $this->db->prepare($sql);
+            return $statement->execute([$username, $bookTitle]);
         }
     }
 ?>
