@@ -23,7 +23,7 @@
                     'username' => $username,
                     'user_email' => $user_email,
                     'user_cpf' => $user_cpf,
-                    'user_password' => $user_password // NOTA: Senhas devem ser hasheadas (ex: password_hash)
+                    'user_password' => $user_password
                 ];
 
                 try{
@@ -33,25 +33,22 @@
                     exit();
 
                 } catch(PDOException $e){
-                    // Verifica se é erro de duplicidade
                     if ($e->getCode() == 23000) {
                          $_SESSION['error'] = 'Erro ao registrar. O e-mail ou CPF já está em uso.';
                     } else {
                          $_SESSION['error'] = 'Ocorreu um erro no banco de dados: ' . $e->getMessage();
                     }
-                    header('Location: /register'); // Volta para o registro
+                    header('Location: /register');
                     exit();
                 }
 
             else :
                 $_SESSION['error'] = 'Por favor, preencha todos os campos.';
-                header('Location: /register'); // Volta para o registro
-                exit();
+                header('Location: /register');
             endif;
 
         endif;
         
-        // Se não for POST, redireciona para o login (comportamento original)
         header('Location: /login');
         exit();
 

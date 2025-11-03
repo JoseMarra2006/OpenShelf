@@ -5,6 +5,7 @@
 
     <div class="account-data">
         <?php
+
             if (isset($current_user_data) && !empty($current_user_data)) :
                 echo '<strong>Name:</strong> ' . htmlspecialchars($current_user_data['username']) . '<br>';
                 echo '<strong>E-mail:</strong> ' . htmlspecialchars($current_user_data['user_email']) . '<br>';

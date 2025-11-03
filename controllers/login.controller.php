@@ -15,7 +15,7 @@
             unset($_SESSION['username']);
             unset($_SESSION['role']);
 
-            $_SESSION['success'] = 'Logoff realizado com sucesso.';
+            $_SESSION['success'] = 'Logoff realizado com sucesso!';
             header('Location: /main-page');
             exit();
 
@@ -42,7 +42,7 @@
 
             $user = $userRepository->findByEmail($user_email);
 
-            if($user && $user['user_password'] == $user_password) : // NOTA: Senhas em texto plano não são seguras!
+            if($user && $user['user_password'] == $user_password) :
                         $_SESSION['logged'] = "true";
                         $_SESSION['role'] = "user";                        
                         $_SESSION['username'] = $user['username'];
