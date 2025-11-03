@@ -27,7 +27,7 @@
                     <td>
                         <form id="user-delete" method="POST" action="/catalogue/save-lend">
                             <input type="hidden" name="book" value="<?= htmlspecialchars($catalogue['book_title'] ?? '')?>">
-                            <button type="submit">Lend</button>
+                            <button class="btn-signin" type="submit">Lend</button>
                         </form>
                     </td>
                     </tr>

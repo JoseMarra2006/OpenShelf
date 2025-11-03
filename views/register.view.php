@@ -13,7 +13,7 @@
 <?php else : ?>
 
 <section class="register-login-user">
-    <h2 class="register-home">Register on OpenShelf</h2>
+    <h2 class="book-home">Register on OpenShelf</h2>
 
     <form id="register-login-form" method="POST" action="/register/save">
         <div class="username">

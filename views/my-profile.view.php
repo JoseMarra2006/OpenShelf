@@ -18,7 +18,7 @@
 
 <div class="books-list">
         <div class="lend-title">
-            <h3>My books</h3>
+            <h3 class="my-books">My books</h3>
         </div>
         
         <div id="my-books">
@@ -32,7 +32,7 @@
 
                                 <li><?= htmlspecialchars($book['book_title']) ?>
                                     <input type="hidden" name="book" value="<?= htmlspecialchars($book['book_title'] ?? '')?>">
-                                    <button type="submit">Return</button></li>
+                                    <button class="btn-signin" type="submit">Return</button></li>
 
                             </form>
 
