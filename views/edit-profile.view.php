@@ -8,7 +8,7 @@
         
         $role = $_SESSION['role'] ?? 'user';
         $form_action = "/my-profile/update";
-        if ($role == 'admin' && isset($_SESSION['admin_editing_user'])) {
+        if ($role == 'admin' && isset($_SESSION['admin_editing_username'])) {
             $form_action = "/admin/update";
         }
 ?>
