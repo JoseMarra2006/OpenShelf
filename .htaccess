@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redireciona requisições para a API para o diretório public do Laravel
+    RewriteRule ^api/(.*)$ api/public/$1 [L]
+
+    # Mantém a regra original para o projeto PHP
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
